@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Treasures
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: surface
+    uniqueID: 2914724337
+    locked: 0
+  - name: Background
+    uniqueID: 1372870451
+    locked: 0
+  - name: seaBed
+    uniqueID: 2538688109
+    locked: 0
+  - name: trasures
+    uniqueID: 2468030579
+    locked: 0
+  - name: sub
+    uniqueID: 3322475061
+    locked: 0
