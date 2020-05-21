@@ -16,6 +16,11 @@ public class subControl : MonoBehaviour
     public float nose_up_pitch;
     public bool rot_corrected_neg;
     public bool rot_corrected_pos;
+    public float depth;
+    public bool diving;
+    public float time_spent_underwater;
+    public float previous_timestamp;
+    public float dt;
 
     // Start is called before the first frame update
     void Start()
@@ -27,11 +32,18 @@ public class subControl : MonoBehaviour
         nose_up_pitch = 1f;
         rot_corrected_neg = false;
         rot_corrected_pos = true;
+        diving = false;
+        time_spent_underwater = 0.0f;
+        previous_timestamp = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // computing dt
+        dt = Time.time - previous_timestamp;
+        previous_timestamp = Time.time;
+
         float vert_velocity = velocity_buoyancy + desired_vert_speed;
         float horiz_velocity = desired_fwd_speed;
         float current_pitch = sub.rotation;
@@ -69,6 +81,28 @@ public class subControl : MonoBehaviour
             }   
         }
 
+        // Measure the depth of the vehicle
+        // surface is y = 6.6. 1 m of depth = 0.4 in y. y at sea bed = -24.4. water depth ~ 77.5
+        depth = -1f*((sub.position.y - 6.6f) /0.4f);
+        if (depth>2.5){
+            diving = true;
+        }
+        else {
+            diving = false;
+        }
+
+        // Time spent underwater counter
+        if (diving) {
+            time_spent_underwater += dt;
+        }
+        else{
+            time_spent_underwater = 0.0f;
+        }
+        
+        Debug.Log(time_spent_underwater);
+
+
+
     }
 
    // pickup an object and the object disappears 
@@ -79,9 +113,6 @@ public class subControl : MonoBehaviour
     	}
     }
 
-    
-
-    // measure depth
     // measure time underwater
     // indicate depth, pose and velocity
     // add a counter for battery power
