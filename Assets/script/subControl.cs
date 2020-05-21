@@ -71,6 +71,7 @@ public class subControl : MonoBehaviour
 
     }
 
+   // pickup an object and the object disappears 
     private void OnTriggerEnter2D(Collider2D collectSample){
     	if (collectSample.gameObject.CompareTag("Treasures"))
     	{
@@ -78,12 +79,14 @@ public class subControl : MonoBehaviour
     	}
     }
 
+    
+
     // measure depth
     // measure time underwater
     // indicate depth, pose and velocity
     // add a counter for battery power
     // add a counter for weight
-    // pickup an object
+    
     // motion of the ship
     // ship loitering
     // ship moving towards the sub when at surface
