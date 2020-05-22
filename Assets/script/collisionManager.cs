@@ -21,6 +21,6 @@ public class collisionManager : MonoBehaviour
     public void changeCollisionCount (int collision)
     {
     	collisions +=collision;
-    	text.text = "Collisions: " + collisions.ToString();
+    	text.text = "Collisions : " + collisions.ToString();
     }
 }

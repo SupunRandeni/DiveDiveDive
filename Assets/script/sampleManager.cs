@@ -22,6 +22,6 @@ public class sampleManager : MonoBehaviour
     public void ChangeSampleCount (int sampleCount)
     {
     	samples +=sampleCount;
-    	text.text = "Treasures: " + samples.ToString();
+    	text.text = "Samples  :" + samples.ToString();
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class subControl : MonoBehaviour
 {
@@ -113,11 +114,9 @@ public class subControl : MonoBehaviour
     	}
     }
 
-    // measure time underwater
     // indicate depth, pose and velocity
     // add a counter for battery power
     // add a counter for weight
-    
     // motion of the ship
     // ship loitering
     // ship moving towards the sub when at surface
