@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class collidableObject : MonoBehaviour
 {
-    public int collisionValue = 1;
+    public float collisionValue = 1;
     private void OnTriggerEnter2D(Collider2D collision)
     {
     	if (collision.gameObject.CompareTag("Player"))

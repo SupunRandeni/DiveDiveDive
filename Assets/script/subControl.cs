@@ -19,9 +19,12 @@ public class subControl : MonoBehaviour
     public bool rot_corrected_pos;
     public float depth;
     public bool diving;
-    public float time_spent_underwater;
+    private float time_spent_underwater;
     public float previous_timestamp;
     public float dt;
+    public Text text_depth;
+    public Text text_oxygen;
+    public bool maydayMayday;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +39,7 @@ public class subControl : MonoBehaviour
         diving = false;
         time_spent_underwater = 0.0f;
         previous_timestamp = Time.time;
+        maydayMayday = false;
     }
 
     // Update is called once per frame
@@ -44,8 +48,12 @@ public class subControl : MonoBehaviour
         // computing dt
         dt = Time.time - previous_timestamp;
         previous_timestamp = Time.time;
-
-        float vert_velocity = velocity_buoyancy + desired_vert_speed;
+        float vert_velocity;
+        if(maydayMayday){               // if the sub is sinking
+            sub.gravityScale = 10f;
+        }
+        vert_velocity = velocity_buoyancy + desired_vert_speed;
+        
         float horiz_velocity = desired_fwd_speed;
         float current_pitch = sub.rotation;
 
@@ -85,14 +93,16 @@ public class subControl : MonoBehaviour
         // Measure the depth of the vehicle
         // surface is y = 6.6. 1 m of depth = 0.4 in y. y at sea bed = -24.4. water depth ~ 77.5
         depth = -1f*((sub.position.y - 6.6f) /0.4f);
+        // Display depth on the screen
+        text_depth.text = "Depth        : " + depth.ToString("0.#") + " m";
+
+        // Time spent underwater counter
         if (depth>2.5){
             diving = true;
         }
         else {
             diving = false;
         }
-
-        // Time spent underwater counter
         if (diving) {
             time_spent_underwater += dt;
         }
@@ -100,8 +110,17 @@ public class subControl : MonoBehaviour
             time_spent_underwater = 0.0f;
         }
         
-        Debug.Log(time_spent_underwater);
-
+        // O2 counter
+        float o2_for_minutes = 2f;
+        float remaining_o2_percentage = 100 - (time_spent_underwater/(o2_for_minutes*60)*100);
+        if (remaining_o2_percentage<0){
+            remaining_o2_percentage = 0.0f;
+        }
+        // display the remaining o2 %
+        text_oxygen.text = "Cabin Oxygen : " + remaining_o2_percentage.ToString("0") + " %";
+        if (remaining_o2_percentage < 0.5f) {
+            maydayMayday=true;
+        }
 
 
     }
@@ -142,4 +161,5 @@ public class subControl : MonoBehaviour
     public void desiredBuoyancy(float buoyancy) {
         desired_vert_speed = -buoyancy;
     }
+
 }
